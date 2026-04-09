@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': 'http://localhost:5005',
-      '/uploads': 'http://localhost:5005',
+      '/api': 'https://kalpathon-eventify.onrender.com',
+      '/uploads': 'https://kalpathon-eventify.onrender.com',
     },
   },
 })
