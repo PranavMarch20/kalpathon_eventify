@@ -97,7 +97,8 @@ const bookTicket = async (req, res) => {
       bookingId: booking._id,
     });
 
-    await sendEmail({
+    // Send confirmation email with a safety timeout to prevent Vercel request timeouts
+    const emailPromise = sendEmail({
       to: user.email,
       subject: `${event.title} Ticket Confirmation`,
       html: emailHtml,
@@ -108,6 +109,14 @@ const bookTicket = async (req, res) => {
         cid: 'qrcode@eventify'
       }]
     });
+
+    // Race the email sending against a 7s timeout
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => {
+      console.warn('Booking email timed out or is taking too long. Proceeding with response.');
+      resolve();
+    }, 7000));
+
+    await Promise.race([emailPromise, timeoutPromise]);
 
     res.status(201).json({
       message: 'Booking confirmed!',

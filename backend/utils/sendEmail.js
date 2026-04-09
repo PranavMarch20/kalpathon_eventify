@@ -1,14 +1,18 @@
 const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+  pool: true, // Use connection pooling
+  maxConnections: 3,
+  maxMessages: 100,
+  timeout: 10000, // 10s connection timeout
+});
 
 const sendEmail = async ({ to, subject, html, attachments }) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
 
     const mailOptions = {
       from: `"Eventify" <${process.env.EMAIL}>`,

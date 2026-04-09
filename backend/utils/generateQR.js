@@ -6,8 +6,8 @@ const generateQR = async (userId, eventId) => {
 
   try {
     const qrCodeImage = await QRCode.toDataURL(qrCodeData, {
-      width: 300,
-      margin: 2,
+      width: 200,
+      margin: 4,
       color: {
         dark: '#000000',
         light: '#ffffff',
