@@ -72,7 +72,7 @@ const bookTicket = async (req, res) => {
     const getPosterUrl = (poster) => {
       if (!poster) return null;
       if (poster.startsWith('http')) return poster;
-      return `${process.env.CLIENT_URL}${poster}`;
+      return `${process.env.FRONTEND_URL || ''}${poster}`;
     };
 
     let mapLink = '';
@@ -103,7 +103,8 @@ const bookTicket = async (req, res) => {
       html: emailHtml,
       attachments: [{
         filename: 'qrcode.png',
-        path: qrCodeImage,
+        content: qrCodeImage.split("base64,")[1],
+        encoding: 'base64',
         cid: 'qrcode@eventify'
       }]
     });
