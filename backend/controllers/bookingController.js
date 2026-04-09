@@ -97,7 +97,7 @@ const bookTicket = async (req, res) => {
       bookingId: booking._id,
     });
 
-    sendEmail({
+    await sendEmail({
       to: user.email,
       subject: `${event.title} Ticket Confirmation`,
       html: emailHtml,
