@@ -1,0 +1,298 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* -- Custom Theme Tokens -- */
+@layer base {
+  :root {
+    --primary: #0052cc;
+    --primary-light: #4d94ff;
+    --primary-dark: #003d99;
+    --accent: #00d9ff;
+    --accent-2: #7c3aed;
+    
+    --bg-dark: #f8fafc;
+    --bg-darker: #0f172a;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafbff;
+    --bg-surface: #f4f7fb;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    
+    --gradient-primary: linear-gradient(135deg, #0052cc 0%, #00a8e8 100%);
+    --gradient-secondary: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+    --gradient-dark: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* -- Scrollbar -- */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  /* -- Hidden Scrollbar Utility -- */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer components {
+  /* -- Animations -- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(0, 82, 204, 0.3), 0 0 40px rgba(0, 168, 232, 0.1); 
+    }
+    50% { 
+      box-shadow: 0 0 40px rgba(0, 82, 204, 0.5), 0 0 60px rgba(0, 168, 232, 0.2); 
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-slideUp { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-slideDown { animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+
+  /* -- Premium Button -- */
+  .btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 82, 204, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 82, 204, 0.4);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: var(--primary);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-secondary:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 82, 204, 0.2);
+  }
+
+  /* -- Glass Effect -- */
+  .glass {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  /* -- Input Styles -- */
+  .input-field {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: var(--bg-surface);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .input-field:focus {
+    background: var(--bg-card);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 6px rgba(0, 82, 204, 0.1);
+  }
+
+  /* ── Card Styles ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 24px; /* More rounded premium feel */
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(148, 163, 184, 0.05); /* very soft shadow */
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(148, 163, 184, 0.1); /* deeper floating effect */
+  }
+
+  /* ── Ticket Cutouts ── */
+  .festival-ticket {
+    display: flex;
+    background: #eaf0ff; /* Soft periwinkle background */
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
+    margin-bottom: 2rem;
+  }
+
+  .ticket-divider {
+    border-left: 2px dashed rgba(160, 180, 220, 0.6);
+    position: relative;
+    min-width: 2px;
+  }
+
+  .ticket-divider::before,
+  .ticket-divider::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-dark); /* Match the page background color to create a transparent cut out illusion */
+    border-radius: 50%;
+    left: -17px;
+    z-index: 10;
+  }
+
+  .ticket-divider::before {
+    top: -16px;
+  }
+
+  .ticket-divider::after {
+    bottom: -16px;
+  }
+
+  /* -- Badge -- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .badge-open {
+    background: #ecfdf5;
+    color: #059669;
+  }
+
+  .badge-college {
+    background: #fffbeb;
+    color: #b45309;
+  }
+
+  .badge-confirmed {
+    background: #eff6ff;
+    color: #0284c7;
+  }
+
+  .badge-checked-in {
+    background: #ecfdf5;
+    color: #059669;
+  }
+
+  .badge-expired {
+    background: #f1f5f9;
+    color: #64748b;
+  }
+}
