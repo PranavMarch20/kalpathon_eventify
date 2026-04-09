@@ -27,6 +27,15 @@ app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 app.use('/api/qr', require('./routes/qrRoutes'));
 
+// Root route for deployment verification
+app.get('/', (req, res) => {
+  res.json({
+    message: '🚀 Eventify API is running!',
+    docs: 'https://github.com/your-username/kalpathon_eventify',
+    status: 'healthy'
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   const mongoose = require('mongoose');
