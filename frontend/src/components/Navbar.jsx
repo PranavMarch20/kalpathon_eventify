@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`fixed w-full top-0 z-[100] transition-all duration-500 ${scrolled ? 'md:top-4 md:px-6' : 'md:top-6 md:px-8'}`}>
+    <div className={`fixed w-full top-0 z-[200] transition-all duration-500 ${scrolled ? 'md:top-4 md:px-6' : 'md:top-6 md:px-8'}`}>
       <nav className={`mx-auto max-w-7xl transition-all duration-500
         ${scrolled 
           ? 'bg-slate-100/75 backdrop-blur-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-200/50 md:rounded-3xl' 
