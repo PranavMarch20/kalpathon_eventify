@@ -175,7 +175,7 @@ const Home = () => {
                 </div>
                 
                 {/* Decorative Mockup */}
-                <div className="mt-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 transform translate-y-12 opacity-80 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl">
+                <div className="mt-3 md:mt-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 transform translate-y-12 opacity-80 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl">
                    <div className="flex gap-4 items-center">
                       <div className="w-14 h-14 bg-indigo-500 rounded-xl overflow-hidden relative">
                          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-indigo-400"></div>
