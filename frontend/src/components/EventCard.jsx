@@ -82,30 +82,30 @@ const EventCard = ({ event }) => {
             </div>
 
             {/* Icons Grid */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                <Clock4 size={14} className="text-blue-500 shrink-0" />
+            <div className="grid grid-cols-2 gap-3 mb-5">
+              <div className="flex items-center gap-2.5 text-[13px] font-semibold text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                <Clock4 size={15} className="text-blue-500 shrink-0" />
                 <span className="truncate">{event.time ? event.time : 'TBD'}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                <MapPin size={14} className="text-purple-500 shrink-0" />
+              <div className="flex items-center gap-2.5 text-[13px] font-semibold text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                <MapPin size={15} className="text-purple-500 shrink-0" />
                 <span className="truncate">{event.location}</span>
               </div>
             </div>
 
             {/* Booking Progress Bar */}
-            <div className="mb-4 mt-auto">
-              <div className="flex justify-between items-end mb-1">
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+            <div className="mb-6 mt-auto">
+              <div className="flex justify-between items-end mb-2">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Capacity
                 </span>
-                <span className={`text-[9px] font-bold ${event.availableSeats > 0 ? 'text-[var(--primary)]' : 'text-red-500'}`}>
+                <span className={`text-[11px] font-black ${event.availableSeats > 0 ? 'text-[var(--primary)]' : 'text-red-500'}`}>
                    {event.availableSeats > 0 ? `${event.totalSeats - event.availableSeats} / ${event.totalSeats} Booked` : 'Sold Out'}
                 </span>
               </div>
-              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden shadow-inner">
                 <div 
-                  className={`h-full rounded-full transition-all duration-1000 ${event.availableSeats === 0 ? 'bg-red-500' : 'bg-gradient-to-r from-blue-400 to-[var(--primary)]'}`}
+                  className={`h-full rounded-full transition-all duration-1000 ${event.availableSeats === 0 ? 'bg-red-500' : 'bg-gradient-to-r from-blue-400 via-[var(--primary)] to-indigo-600'}`}
                   style={{ width: `${Math.min(((event.totalSeats - event.availableSeats) / event.totalSeats) * 100, 100)}%` }}
                 />
               </div>

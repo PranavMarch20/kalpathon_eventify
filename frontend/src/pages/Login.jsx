@@ -34,22 +34,22 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-12">
+    <div className="flex-1 flex items-center justify-center px-4 py-20 md:py-32">
       {/* Background effects */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full opacity-10 blur-3xl" style={{ background: 'var(--primary)' }} />
 
       <div className="w-full max-w-md animate-slideUp">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-             <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center">
-               <Ticket className="text-[var(--primary)] transform -rotate-12" size={32} />
+        <div className="text-center mb-6">
+          <div className="flex justify-center mb-3">
+             <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+               <Ticket className="text-[var(--primary)] transform -rotate-12" size={28} />
              </div>
           </div>
-          <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
-          <p className="text-[var(--text-secondary)]">Sign in to your Eventify account</p>
+          <h1 className="text-2xl font-bold mb-1.5">Welcome back</h1>
+          <p className="text-sm text-[var(--text-secondary)]">Sign in to your Eventify account</p>
         </div>
 
-        <div className="card p-8">
+        <div className="card p-6 md:p-8">
           {error && (
             <div className="mb-4 p-3 rounded-lg text-sm text-[var(--error)]" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
               {error}

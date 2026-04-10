@@ -45,7 +45,7 @@ const Navbar = () => {
         }
       `}>
         <div className="px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16">
             
             {/* Premium Agency-Style Geometric Logo Block */}
             <Link to="/" className="flex items-center gap-3.5 no-underline group relative">
@@ -64,10 +64,10 @@ const Navbar = () => {
 
               {/* Minimalist Structured Typography */}
               <div className="flex flex-col justify-center translate-y-[-1px]">
-                <span className="text-[26px] font-extrabold tracking-[-0.05em] text-slate-900 group-hover:text-[#4F47E5] transition-colors duration-500 leading-none">
+                <span className="text-[22px] font-extrabold tracking-[-0.05em] text-slate-900 group-hover:text-[#4F47E5] transition-colors duration-500 leading-none">
                   Eventify
                 </span>
-                <span className="text-[9px] font-black tracking-[0.25em] text-slate-400 uppercase mt-1 group-hover:text-indigo-400 transition-colors leading-none ml-[2px]">
+                <span className="text-[8px] font-black tracking-[0.25em] text-slate-400 uppercase mt-0.5 group-hover:text-indigo-400 transition-colors leading-none ml-[2px]">
                   Platform
                 </span>
               </div>
@@ -77,9 +77,9 @@ const Navbar = () => {
             {/* Premium Desktop Navigation */}
             <div className="hidden md:flex items-center gap-2">
               
-              <Link to="/explore" className="relative group px-4 py-2.5 flex items-center gap-2 text-slate-700 font-bold text-[15px] tracking-wide transition-colors hover:text-indigo-700 rounded-xl overflow-hidden no-underline">
+              <Link to="/explore" className="relative group px-3.5 py-2 flex items-center gap-2 text-slate-700 font-bold text-[14px] tracking-wide transition-colors hover:text-indigo-700 rounded-xl overflow-hidden no-underline">
                 <div className="absolute inset-0 bg-indigo-50/80 scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 rounded-xl z-0"></div>
-                <span className="relative z-10 flex items-center gap-2"><Search size={18} className="group-hover:-translate-y-1 group-hover:text-indigo-600 transition-transform duration-300" /> Explore</span>
+                <span className="relative z-10 flex items-center gap-1.5"><Search size={16} className="group-hover:-translate-y-1 group-hover:text-indigo-600 transition-transform duration-300" /> Explore</span>
               </Link>
 
               {user ? (
@@ -150,11 +150,11 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <div className="flex items-center gap-3 ml-4">
-                  <Link to="/login" className="text-slate-600 font-bold hover:text-indigo-600 text-[15px] transition-colors no-underline px-4 py-2 rounded-xl hover:bg-slate-50">
+                <div className="flex items-center gap-2.5 ml-4">
+                  <Link to="/login" className="text-slate-600 font-bold hover:text-indigo-600 text-[14px] transition-colors no-underline px-3.5 py-1.5 rounded-xl hover:bg-slate-50">
                     Log In
                   </Link>
-                  <Link to="/register" className="bg-slate-900 hover:bg-black text-white font-bold text-[15px] py-2.5 px-6 rounded-xl transition-all hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.5)] hover:-translate-y-0.5 no-underline">
+                  <Link to="/register" className="bg-slate-900 hover:bg-black text-white font-bold text-[14px] py-2 px-5 rounded-xl transition-all hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.5)] hover:-translate-y-0.5 no-underline">
                     Get Started
                   </Link>
                 </div>
