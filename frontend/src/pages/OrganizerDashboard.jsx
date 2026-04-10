@@ -191,17 +191,17 @@ const OrganizerDashboard = () => {
                       </button>
                     </div>
                     
-                    {/* Stats overlay at bottom on hover */}
-                    <div className="absolute inset-x-0 bottom-0 p-4 bg-white/90 backdrop-blur-sm border-t border-[var(--border)] translate-y-full group-hover:translate-y-0 transition-transform z-10 rounded-b-xl flex justify-between items-center opacity-0 group-hover:opacity-100 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-                      <div className="text-center w-1/2 border-r border-[var(--border)]">
-                        <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider mb-1">Booked</p>
-                        <p className="font-bold text-lg text-[var(--primary)]">
-                          {(event.totalSeats - event.availableSeats)} <span className="text-sm font-medium text-[var(--text-secondary)]">/ {event.totalSeats}</span>
+                    {/* Stats overlay inside card on hover */}
+                    <div className="absolute inset-x-5 bottom-5 p-3.5 bg-white/95 backdrop-blur-xl border border-white shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20 rounded-2xl flex justify-between items-center overflow-hidden">
+                      <div className="text-center w-1/2 border-r border-slate-100">
+                        <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest mb-1">Booked</p>
+                        <p className="font-black text-base text-[var(--primary)] leading-none">
+                          {(event.totalSeats - event.availableSeats)} <span className="text-xs font-bold text-slate-400">/ {event.totalSeats}</span>
                         </p>
                       </div>
                       <div className="text-center w-1/2">
-                         <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider mb-1">Revenue</p>
-                         <p className="font-bold text-lg text-emerald-600">Free</p>
+                         <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest mb-1">Revenue</p>
+                         <p className="font-black text-base text-emerald-600 leading-none">Free</p>
                       </div>
                     </div>
                   </div>

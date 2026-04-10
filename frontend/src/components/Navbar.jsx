@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Ticket, 
   Menu, 
@@ -20,13 +20,26 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
+
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -37,15 +50,15 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`fixed w-full top-0 z-[200] transition-all duration-500 ${scrolled ? 'md:top-4 md:px-6' : 'md:top-6 md:px-8'}`}>
-      <nav className={`mx-auto max-w-7xl transition-all duration-500
+    <div className={`fixed w-full top-0 z-[200] transition-all duration-700 ${scrolled ? 'md:top-3 md:px-12' : 'md:top-6 md:px-8'}`}>
+      <nav className={`mx-auto transition-all duration-700 ease-in-out bg-slate-100/75 backdrop-blur-2xl border border-slate-200/50
         ${scrolled 
-          ? 'bg-slate-100/75 backdrop-blur-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-200/50 md:rounded-3xl' 
-          : 'bg-slate-50/50 backdrop-blur-xl shadow-lg border border-slate-200/40 md:rounded-[2rem]'
+          ? 'max-w-5xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] md:rounded-full px-2' 
+          : 'max-w-7xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] md:rounded-3xl px-4'
         }
       `}>
-        <div className="px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between h-16">
+        <div className={`px-4 sm:px-6 transition-all duration-700 ${scrolled ? 'lg:px-6' : 'lg:px-8'}`}>
+          <div className={`flex items-center justify-between transition-all duration-700 ${scrolled ? 'h-14' : 'h-16'}`}>
             
             {/* Premium Agency-Style Geometric Logo Block */}
             <Link to="/" className="flex items-center gap-3.5 no-underline group relative">
@@ -57,17 +70,17 @@ const Navbar = () => {
                    {/* Abstract internal slash for energy */}
                    <div className="w-[150%] h-1 bg-white/20 transform -rotate-45 absolute group-hover:translate-x-4 transition-transform duration-700"></div>
                  </div>
-                 <div className="absolute inset-1 bg-white/95 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-inner transform group-hover:scale-95 transition-transform duration-500">
-                    <span className="text-[#4F47E5] font-black text-xl italic tracking-tighter">E</span>
+                 <div className={`absolute inset-1 bg-white/95 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-inner transform transition-all duration-700 ${scrolled ? 'scale-90' : 'group-hover:scale-95'}`}>
+                    <span className={`text-[#4F47E5] font-black italic tracking-tighter transition-all duration-700 ${scrolled ? 'text-md' : 'text-lg'}`}>E</span>
                  </div>
               </div>
 
               {/* Minimalist Structured Typography */}
               <div className="flex flex-col justify-center translate-y-[-1px]">
-                <span className="text-[22px] font-extrabold tracking-[-0.05em] text-slate-900 group-hover:text-[#4F47E5] transition-colors duration-500 leading-none">
+                <span className={`font-extrabold tracking-[-0.05em] text-slate-900 group-hover:text-[#4F47E5] transition-all duration-700 leading-none ${scrolled ? 'text-[20px]' : 'text-[22px]'}`}>
                   Eventify
                 </span>
-                <span className="text-[8px] font-black tracking-[0.25em] text-slate-400 uppercase mt-0.5 group-hover:text-indigo-400 transition-colors leading-none ml-[2px]">
+                <span className={`font-black tracking-[0.25em] text-slate-400 uppercase group-hover:text-indigo-400 transition-all duration-700 leading-none ml-[2px] ${scrolled ? 'text-[7px] mt-0' : 'text-[8px] mt-0.5'}`}>
                   Platform
                 </span>
               </div>
@@ -108,7 +121,7 @@ const Navbar = () => {
                   )}
                   
                   {/* User Profile Block */}
-                  <div className="relative flex items-center gap-3 ml-4 pl-6 border-l-2 border-slate-200">
+                  <div className="relative flex items-center gap-3 ml-4 pl-6 border-l-2 border-slate-200" ref={dropdownRef}>
                     <button 
                       onClick={() => setDropdownOpen(!dropdownOpen)} 
                       className="flex items-center gap-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-full pr-4 pl-1 py-1 cursor-pointer transition-all hover:shadow-md group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -124,17 +137,14 @@ const Navbar = () => {
 
                     {/* Animated Dropdown Menu */}
                     {dropdownOpen && (
-                      <>
-                        <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)}></div>
-                        
-                        <div className="absolute right-0 top-full mt-4 w-64 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-white p-2 z-50 transform origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
-                          <div className="px-5 py-4 border-b border-slate-100 mb-2 bg-slate-50/50 rounded-t-2xl">
-                            <p className="text-base font-black text-slate-900 truncate mb-0.5">{user.name}</p>
-                            <p className="text-xs text-slate-500 font-medium truncate mb-2">{user.email}</p>
-                            <span className="inline-flex items-center px-2 py-1 rounded text-[10px] uppercase tracking-widest font-black bg-indigo-100 text-indigo-700">
-                              {user.role}
-                            </span>
-                          </div>
+                      <div className="absolute right-0 top-full mt-4 w-64 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-white p-2 z-50 transform origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
+                        <div className="px-5 py-4 border-b border-slate-100 mb-2 bg-slate-50/50 rounded-t-2xl">
+                          <p className="text-base font-black text-slate-900 truncate mb-0.5">{user.name}</p>
+                          <p className="text-xs text-slate-500 font-medium truncate mb-2">{user.email}</p>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-[10px] uppercase tracking-widest font-black bg-indigo-100 text-indigo-700">
+                            {user.role}
+                          </span>
+                        </div>
                           
                           <div className="p-1">
                             <button 
@@ -145,16 +155,15 @@ const Navbar = () => {
                             </button>
                           </div>
                         </div>
-                      </>
                     )}
                   </div>
                 </>
               ) : (
-                <div className="flex items-center gap-2.5 ml-4">
-                  <Link to="/login" className="text-slate-600 font-bold hover:text-indigo-600 text-[14px] transition-colors no-underline px-3.5 py-1.5 rounded-xl hover:bg-slate-50">
+                <div className={`flex items-center ml-4 transition-all duration-700 ${scrolled ? 'gap-1' : 'gap-2.5'}`}>
+                  <Link to="/login" className={`text-slate-600 font-bold hover:text-indigo-600 transition-all no-underline rounded-xl hover:bg-slate-50 ${scrolled ? 'text-[13px] px-3 py-1.5' : 'text-[14px] px-3.5 py-1.5'}`}>
                     Log In
                   </Link>
-                  <Link to="/register" className="bg-slate-900 hover:bg-black text-white font-bold text-[14px] py-2 px-5 rounded-xl transition-all hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.5)] hover:-translate-y-0.5 no-underline">
+                  <Link to="/register" className={`bg-slate-900 hover:bg-black text-white font-bold transition-all hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.5)] hover:-translate-y-0.5 no-underline ${scrolled ? 'text-[13px] py-2 px-4 rounded-full' : 'text-[14px] py-2 px-5 rounded-xl'}`}>
                     Get Started
                   </Link>
                 </div>

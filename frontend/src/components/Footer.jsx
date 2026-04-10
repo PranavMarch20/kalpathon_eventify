@@ -8,33 +8,42 @@ const BrandYoutube = ({size=20}) => <svg width={size} height={size} viewBox="0 0
 
 const Footer = () => {
   return (
-    <footer className="bg-[#4F46E5] text-white pt-20 pb-0 overflow-hidden flex-shrink-0 mt-auto">
+    <footer className="bg-[#4F46E5] text-white pt-20 pb-0 overflow-hidden flex-shrink-0 mt-[100px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Left Col - Brand & Socials */}
           <div className="md:col-span-4 lg:col-span-5 flex flex-col gap-6">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#4F46E5]">
-                <Ticket size={24} className="transform -rotate-12" />
+            <div className="flex items-center gap-3.5 mb-6 group cursor-default">
+              {/* Geometric Brand Icon (Matching Navbar) */}
+              <div className="relative flex items-center justify-center w-11 h-11 shrink-0">
+                 <div className="absolute inset-0 bg-indigo-200/20 rounded-xl transform -rotate-6 transition-transform duration-500 opacity-60 mix-blend-overlay"></div>
+                 <div className="absolute inset-0 bg-white rounded-xl transform rotate-3 transition-all duration-500 shadow-md flex items-center justify-center overflow-hidden">
+                   {/* Abstract internal slash */}
+                   <div className="w-[150%] h-1 bg-indigo-500/10 transform -rotate-45 absolute"></div>
+                 </div>
+                 <div className="absolute inset-1 bg-[#4F47E5] rounded-lg flex items-center justify-center shadow-inner transform transition-all duration-500">
+                    <span className="text-white font-black italic tracking-tighter text-lg">E</span>
+                 </div>
               </div>
-              <span className="text-2xl font-black tracking-tight text-white">Eventify</span>
+
+              {/* Structured Typography */}
+              <div className="flex flex-col justify-center translate-y-[-1px]">
+                <span className="text-2xl font-black tracking-[-0.05em] text-white leading-none">
+                  Eventify
+                </span>
+                <span className="font-black tracking-[0.25em] text-indigo-200 uppercase leading-none ml-[2px] text-[8px] mt-0.5">
+                  Platform
+                </span>
+              </div>
             </div>
             
-            <div className="mb-6">
-              <p className="text-indigo-200 text-sm font-semibold mb-3">Language</p>
-              <button className="flex items-center justify-between w-48 bg-black/10 hover:bg-black/20 transition-colors px-4 py-2.5 rounded-lg text-sm font-medium">
-                <span>English, USA</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
-              </button>
-            </div>
-
             <div>
-              <p className="text-indigo-200 text-sm font-semibold mb-3">Social</p>
+              <p className="text-indigo-200 text-sm font-bold mb-4 uppercase tracking-wider">Social Connect</p>
               <div className="flex items-center gap-4 text-white">
-                <a href="#" className="hover:text-white/80 transition-colors"><BrandTwitter size={20} /></a>
-                <a href="#" className="hover:text-white/80 transition-colors"><BrandInstagram size={20} /></a>
-                <a href="#" className="hover:text-white/80 transition-colors"><BrandFacebook size={20} /></a>
-                <a href="#" className="hover:text-white/80 transition-colors"><BrandYoutube size={20} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110"><BrandTwitter size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110"><BrandInstagram size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110"><BrandFacebook size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110"><BrandYoutube size={18} /></a>
               </div>
             </div>
           </div>
@@ -85,8 +94,8 @@ const Footer = () => {
       </div>
       
       {/* Massive Background Typography - Separated to avoid overlap! */}
-      <div className="w-full flex justify-center mt-[-2rem] pointer-events-none relative z-0 select-none overflow-hidden pb-4">
-        <span className="text-[120px] sm:text-[180px] md:text-[240px] lg:text-[280px] font-black tracking-tighter leading-[0.8] text-[#e0e7ff] opacity-90 mx-auto w-full text-center whitespace-nowrap px-4 ml-[-1rem]">
+      <div className="w-full flex justify-center mt-8 pointer-events-none relative z-0 select-none overflow-hidden pb-4">
+        <span className="text-[70px] xs:text-[90px] sm:text-[180px] md:text-[240px] lg:text-[280px] font-black tracking-tighter leading-[0.8] text-[#e0e7ff] opacity-90 mx-auto w-full text-center whitespace-nowrap px-4">
           Eventify
         </span>
       </div>

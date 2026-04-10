@@ -51,8 +51,8 @@ const Register = () => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-20 md:py-32">
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full opacity-10 blur-3xl" style={{ background: 'var(--accent)' }} />
+    <div className="flex-1 flex flex-col items-center justify-start px-4 py-10 md:pb-30 md:pt-5">
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 z-[-5] rounded-full opacity-10 blur-3xl" style={{ background: 'var(--accent)' }} />
 
       <div className="w-full max-w-2xl animate-slideUp">
         <div className="text-center mb-6">
@@ -65,7 +65,7 @@ const Register = () => {
           <p className="text-sm text-[var(--text-secondary)]">Join Eventify and start exploring events</p>
         </div>
 
-        <div className="card p-6 md:p-8">
+        <div className="card p-6 md:p-8 z-90">
           {error && (
             <div className="mb-6 p-3 rounded-lg text-sm text-[var(--error)]" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
               {error}

@@ -16,13 +16,16 @@ import ScanTicket from './pages/ScanTicket';
 import ForgotPassword from './pages/ForgotPassword';
 import EventAnalytics from './pages/EventAnalytics';
 
+import ScrollToTop from './components/ScrollToTop';
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="font-sans text-slate-900 bg-slate-50 flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow flex flex-col pt-20 md:pt-[100px]">
+          <main className="flex-grow flex flex-col pt-20 md:pt-[124px]">
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Home />} />

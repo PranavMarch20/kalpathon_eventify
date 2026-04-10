@@ -34,11 +34,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-20 md:py-32">
+    <div className="flex-1 flex flex-col items-center justify-start px-4 py-8 md:py-12">
       {/* Background effects */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full opacity-10 blur-3xl" style={{ background: 'var(--primary)' }} />
 
-      <div className="w-full max-w-md animate-slideUp">
+      <div className="w-full max-w-md animate-slideUp z-40">
         <div className="text-center mb-6">
           <div className="flex justify-center mb-3">
              <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">

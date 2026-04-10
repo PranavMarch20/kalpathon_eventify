@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div className="flex flex-col flex-grow">
       {/* Hero Section */}
-      <section className="relative overflow-hidden w-full max-w-[100vw] pt-16 pb-20 bg-[#f8fafc]">
+      <section className="relative overflow-hidden w-full max-w-[100vw] pt-12 sm:pt-16 pb-40 sm:pb-24 bg-[#f8fafc]">
         {/* Subtle background glow */}
         <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none" />
@@ -34,7 +34,7 @@ const Home = () => {
             Create & Share
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold mb-5 leading-[1.1] tracking-tight text-[#0f172a] max-w-3xl">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold mb-5 leading-[1.1] tracking-tight text-[#0f172a] max-w-3xl">
             Create stunning local event <span className="text-[#1e293b]">experiences</span> in seconds
           </h1>
 
@@ -70,7 +70,7 @@ const Home = () => {
                  </div>
                  
                  <div className="text-left w-full">
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Summer Fiesta '26</h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 tracking-tight">Summer Fiesta '26</h2>
                     <div className="flex gap-8">
                        <div>
                          <p className="text-[10px] font-bold text-slate-400 flex items-center gap-1 uppercase tracking-widest mb-1.5"><Ticket size={12} className="text-emerald-400" /> Tickets Sold</p>
@@ -101,7 +101,7 @@ const Home = () => {
             </div>
 
             {/* Widget 1: Left Skewed Dashboard Card */}
-            <div className="absolute -left-4 md:-left-20 top-20 md:top-40 z-20 bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 rotate-[-8deg] transform hover:rotate-[-2deg] transition-transform duration-500 w-56 md:w-64">
+            <div className="absolute -left-2 xs:-left-8 md:-left-20 top-20 md:top-40 z-20 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 md:p-6 rotate-[-8deg] transform hover:rotate-[-2deg] transition-transform duration-500 w-44 sm:w-56 md:w-64">
                <p className="text-[9px] font-bold text-slate-400 tracking-[0.1em] uppercase mb-4">Live Check-ins</p>
                <div className="relative w-full h-16 bg-slate-50 rounded-lg overflow-hidden border border-slate-100 mb-4 p-2">
                  <div className="absolute left-2 bottom-2 w-4 h-8 bg-sky-200 rounded-sm"></div>
@@ -122,7 +122,7 @@ const Home = () => {
             </div>
 
             {/* Widget 2: Right Skewed Ticket Mock */}
-            <div className="absolute -right-4 md:-right-16 top-64 md:top-80 z-20 bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 rotate-[6deg] transform hover:rotate-[2deg] transition-transform duration-500 w-56 md:w-64">
+            <div className="absolute -right-2 xs:-right-8 md:-right-16 top-[480px] sm:top-64 md:top-80 z-20 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 md:p-6 rotate-[6deg] transform hover:rotate-[2deg] transition-transform duration-500 w-44 sm:w-56 md:w-64">
                <p className="text-[9px] font-bold text-slate-400 tracking-[0.1em] uppercase mb-4 flex items-center gap-1.5"><Ticket size={12} /> Your QR Pass</p>
                <div className="w-full flex justify-center mb-4">
                  <div className="w-24 h-24 bg-white border border-slate-200 p-1 flex flex-wrap shadow-sm">
