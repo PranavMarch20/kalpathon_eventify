@@ -173,7 +173,7 @@ Important:
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/PranavMarch20/kalpathon_eventify.git
 cd Eventify
 ```
 
@@ -367,7 +367,3 @@ in `frontend/.env`, then restart the Vite dev server.
 - Read the root `README.md` first; the frontend README is only a pointer.
 - Keep environment-specific values out of source code and in `.env` files.
 - If you change API shapes, update both backend controllers and frontend service consumers.
-
-## License
-
-This project currently has no explicit license file in the repository. Add one before public distribution if needed.
