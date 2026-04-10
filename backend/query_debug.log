@@ -1,0 +1,2 @@
+[2026-04-10T09:47:19.263Z] Query: {"timeStatus":"upcoming"} | Filter: {"date":{"$gte":"2026-04-09T18:30:00.000Z"}}
+[2026-04-10T09:47:19.638Z] Query: {"timeStatus":"upcoming"} | Filter: {"date":{"$gte":"2026-04-09T18:30:00.000Z"}}

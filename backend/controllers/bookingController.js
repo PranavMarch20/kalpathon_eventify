@@ -3,6 +3,7 @@ const Booking = require('../models/Booking');
 const User = require('../models/User');
 const generateQR = require('../utils/generateQR');
 const { sendEmail, buildTicketEmail } = require('../utils/sendEmail');
+const imagekit = require('../config/imagekit');
 
 // @desc    Book tickets for an event
 // @route   POST /api/bookings/book
@@ -56,8 +57,22 @@ const bookTicket = async (req, res) => {
       });
     }
 
-    // Generate QR code
-    const { qrCodeData, qrCodeImage } = await generateQR(req.user.id, eventId);
+    // Generate QR code base64
+    const { qrCodeData, qrCodeImage: qrBase64 } = await generateQR(req.user.id, eventId);
+
+    // Upload QR code to ImageKit
+    let qrCodeUrl = qrBase64;
+    try {
+      const qrUploadResponse = await imagekit.upload({
+        file: qrBase64.split('base64,')[1],
+        fileName: `qr-${bookingId = Date.now()}-${req.user.id}.png`,
+        folder: '/eventify_qrcodes',
+      });
+      qrCodeUrl = qrUploadResponse.url;
+    } catch (uploadError) {
+      console.error('QR ImageKit upload failed, falling back to base64:', uploadError.message);
+      // Fallback to storing base64 if ImageKit fails (rare but safe)
+    }
 
     // Create booking
     const booking = await Booking.create({
@@ -65,14 +80,20 @@ const bookTicket = async (req, res) => {
       eventId,
       ticketCount,
       qrCodeData,
-      qrCodeImage,
+      qrCodeImage: qrCodeUrl,
       status: 'confirmed',
     });
 
-    const getPosterUrl = (poster) => {
-      if (!poster) return null;
-      if (poster.startsWith('http')) return poster;
-      return `${process.env.FRONTEND_URL || ''}${poster}`;
+    const normalizeImageUrl = (url) => {
+      if (!url) return null;
+      const trimmedUrl = url.trim();
+      if (trimmedUrl.startsWith('http')) return trimmedUrl;
+      if (trimmedUrl.startsWith('//')) return `https:${trimmedUrl}`;
+      
+      // If it's a relative path from the app, use FRONTEND_URL or just serve it
+      const baseUrl = process.env.IMAGEKIT_URL_ENDPOINT || process.env.FRONTEND_URL || '';
+      const separator = (baseUrl.endsWith('/') || trimmedUrl.startsWith('/')) ? '' : '/';
+      return `${baseUrl}${separator}${trimmedUrl}`;
     };
 
     let mapLink = '';
@@ -92,7 +113,7 @@ const bookTicket = async (req, res) => {
       mapLink: mapLink,
       ticketCount,
       qrCodeCid: 'cid:qrcode@eventify',
-      posterUrl: getPosterUrl(event.poster),
+      posterUrl: normalizeImageUrl(event.poster),
       userName: user.name,
       bookingId: booking._id,
     });
@@ -104,7 +125,7 @@ const bookTicket = async (req, res) => {
       html: emailHtml,
       attachments: [{
         filename: 'qrcode.png',
-        content: qrCodeImage.split("base64,")[1],
+        content: qrBase64.split("base64,")[1],
         encoding: 'base64',
         cid: 'qrcode@eventify'
       }]

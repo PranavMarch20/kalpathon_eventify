@@ -57,6 +57,36 @@ const MyTickets = () => {
     }
   };
 
+  const getImageUrl = (url) => {
+    if (!url || typeof url !== 'string') return null;
+    const trimmed = url.trim();
+    if (!trimmed) return null;
+    
+    // Robust URL construction
+    try {
+      let finalUrl = trimmed;
+      if (!trimmed.startsWith('http') && !trimmed.startsWith('data:') && !trimmed.startsWith('//')) {
+        // Handle relative paths - fallback to same origin if not absolute
+        finalUrl = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+      }
+      
+      // Append cache buster if it's not a base64 string
+      if (!finalUrl.startsWith('data:')) {
+        const separator = finalUrl.includes('?') ? '&' : '?';
+        return `${finalUrl}${separator}not-from-cache-please`;
+      }
+      return finalUrl;
+    } catch (e) {
+      console.error('Invalid URL encountered:', url);
+      return null;
+    }
+  };
+
+  const getQrUrl = (url) => {
+    if (!url || typeof url !== 'string') return null;
+    return url.trim();
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -118,12 +148,16 @@ const MyTickets = () => {
                       className="w-full lg:w-[35%] relative min-h-[220px] lg:min-h-[300px] shrink-0 overflow-hidden"
                       style={{ backgroundColor: 'var(--primary)' }}
                     >
-                      {booking.eventId?.poster ? (
+                      {getImageUrl(booking.eventId?.poster) ? (
                         <img 
-                          src={`${booking.eventId.poster}${booking.eventId.poster.includes('?') ? '&' : '?'}not-from-cache-please`} 
+                          src={getImageUrl(booking.eventId.poster)} 
                           alt="Poster" 
                           crossOrigin="anonymous"
                           className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentElement.classList.add('poster-error-fallback');
+                          }}
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -209,15 +243,19 @@ const MyTickets = () => {
                     {/* 3. Right Side: Ticket Stub & QR */}
                     <div className="w-full lg:w-[280px] bg-[#eaf0ff] p-8 shrink-0 flex flex-col items-center justify-center">
                        <h3 className="text-xl font-bold text-slate-800 mb-6">Scan to Enter</h3>
-                       <div className="bg-white p-3 rounded-2xl shadow-sm mb-6 w-[180px] h-[180px] flex items-center justify-center">
-                         {booking.qrCodeImage ? (
+                       <div className="bg-white p-3 rounded-2xl shadow-sm mb-6 w-[180px] h-[180px] flex items-center justify-center overflow-hidden">
+                         {getQrUrl(booking.qrCodeImage) ? (
                            <img
-                             src={booking.qrCodeImage}
+                             src={getQrUrl(booking.qrCodeImage)}
                              alt="Entry QR Code"
                              className="w-full h-full object-contain"
+                             crossOrigin="anonymous"
                            />
                          ) : (
-                           <span className="text-xs text-slate-400">QR Error</span>
+                           <div className="flex flex-col items-center gap-2">
+                             <Ticket size={32} className="text-slate-200" />
+                             <span className="text-[10px] text-slate-400 font-bold uppercase">QR Error</span>
+                           </div>
                          )}
                        </div>
                        

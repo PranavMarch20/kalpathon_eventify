@@ -56,7 +56,7 @@ const createEvent = async (req, res) => {
       return res.status(400).json({ message: 'Event date cannot be in the past' });
     }
 
-    let finalPoster = posterUrl || null;
+    let finalPoster = (posterUrl && typeof posterUrl === 'string') ? posterUrl.trim() : null;
     if (req.file) {
       const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(req.file.originalname)}`;
       const response = await imagekit.upload({
@@ -95,7 +95,7 @@ const createEvent = async (req, res) => {
 // @route   GET /api/events
 const getEvents = async (req, res) => {
   try {
-    const { city, category, date, eventType, search } = req.query;
+    const { city, category, date, eventType, search, timeStatus } = req.query;
     const filter = {};
 
     if (city) filter.location = { $regex: city, $options: 'i' };
@@ -108,6 +108,21 @@ const getEvents = async (req, res) => {
       endOfDay.setHours(23, 59, 59, 999);
       filter.date = { $gte: startOfDay, $lte: endOfDay };
     }
+
+    // Time Status Filter (Upcoming/Past)
+    if (timeStatus) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const dateFilter = filter.date || {};
+      
+      if (timeStatus === 'upcoming') {
+        filter.date = { ...dateFilter, $gte: today };
+      } else if (timeStatus === 'past') {
+        filter.date = { ...dateFilter, $lt: today };
+      }
+    }
+
     if (search) {
       filter.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -181,7 +196,7 @@ const updateEvent = async (req, res) => {
       });
       updateData.poster = response.url;
     } else if (req.body.posterUrl) {
-      updateData.poster = req.body.posterUrl;
+      updateData.poster = req.body.posterUrl.trim();
     }
 
     // Handle college logic on eventType change

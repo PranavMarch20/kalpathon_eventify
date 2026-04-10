@@ -85,7 +85,7 @@ const CreateEvent = () => {
         if (key === 'posterFile' && form.posterFile) {
           formData.append('poster', form.posterFile); 
         } else if (key === 'posterUrl' && form.posterUrl) {
-          formData.append('posterUrl', form.posterUrl);
+          formData.append('posterUrl', form.posterUrl.trim());
         } else if (key !== 'posterPreview' && key !== 'posterFile' && key !== 'posterUrl') {
           formData.append(key, form[key]);
         }
